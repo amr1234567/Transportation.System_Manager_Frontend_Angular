@@ -73,7 +73,7 @@ The last screen in the application is the Create Journey screen.
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/amr1234567/Transportation.System_Admin_Frontend_Angular.git
+    git clone https://github.com/amr1234567/Transportation.System_Manager_Frontend_Angular.git
     ```
 
 2. **Install NPM packages**:
