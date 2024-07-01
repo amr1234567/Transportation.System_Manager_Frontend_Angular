@@ -1,0 +1,64 @@
+<div class="Login-Page flex-column d-flex justify-content-between align-items-center w-100 h-100">
+   <header class="d-flex align-items-center w-75 p-3 border-bottom justify-content-between">
+      <a [routerLink]="['/']">
+         <img [src]="logoPath" alt="" width="75">
+      </a>
+      <a class="font-monospace fw-bold link-light text-decoration-none" style="font-size: 2.5rem;"
+         [routerLink]="['/']">Mwaslatk</a>
+   </header>
+   <div class="form-container d-flex flex-column align-items-center gap-4 p-4">
+      <h1 class="text-center">Welcome Back Sir</h1>
+      <form [formGroup]="loginForm" class="login-form d-flex flex-column gap-4 align-items-center w-100" action="post"
+         (ngSubmit)="Login()">
+         <div class="form-floating w-100">
+            <input formControlName="email" name="email" class="form-control rounded-2" type="email" id="email"
+               placeholder="example@example.com" />
+            <label for=" email" class="form-label">Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <span class="text-danger bg-transparent"
+               *ngIf="loginForm.get('email')?.dirty &&loginForm.get('email')?.hasError('required')">
+               "Email must be Entered"
+            </span>
+            <span class="text-danger bg-transparent"
+               *ngIf="loginForm.get('email')?.dirty&& !loginForm.get('email')?.hasError('required') &&(hasPatternError('email','^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))">
+               Email must be valid {{"(ex: example@mail.com)"}}
+            </span>
+         </div>
+         <div class="form-floating w-100">
+            <input class="form-control" name="password" formControlName="password" type="password" id="password"
+               placeholder="Password" />
+            <label for="password" class="form-label">Password</label>
+            <span class="text-danger" *ngIf="loginForm.get('password')?.dirty &&loginForm.get('password')?.hasError('required')">
+               Password must be Entered
+            </span>
+            <span class="text-danger" *ngIf=" loginForm.get('password')?.dirty && loginForm.get('password')?.hasError('minlength')">
+               Password must be more than 8 chars
+            </span>
+            <div class="pass-validation-errors"
+               *ngIf="loginForm.get('password')?.dirty && !loginForm.get('password')?.hasError('required') && !loginForm.get('password')?.hasError('minlength') &&hasPatternError('password','(^(?=.*[A-Z]).*$')">
+               <p class="text-danger">Password must have at least one uppercase letter</p>
+            </div>
+            <div class="pass-validation-errors"
+               *ngIf="loginForm.get('password')?.dirty && !loginForm.get('password')?.hasError('required') && !loginForm.get('password')?.hasError('minlength') && hasPatternError('password','^(?=.*[a-z]).*$')">
+               <p class="text-danger">Password must have at least one small letter</p>
+            </div>
+            <div class="pass-validation-errors"
+               *ngIf="loginForm.get('password')?.dirty && !loginForm.get('password')?.hasError('required') && !loginForm.get('password')?.hasError('minlength') &&(hasPatternError('password','^(?=.*\d).*$'))">
+               <p class="text-danger">Password must have at least one digit</p>
+            </div>
+            <div class="pass-validation-errors"
+               *ngIf="loginForm.get('password')?.dirty && !loginForm.get('password')?.hasError('required') && !loginForm.get('password')?.hasError('minlength') &&(hasPatternError('password','^(?=.*[^a-zA-Z0-9]).*$'))">
+               <p class="text-danger">Password must have at least one special case</p>
+            </div>
+         </div>
+         <p *ngIf="LoginErrors" class="text-danger">{{LoginErrors}}</p>
+         <button *ngIf="!isCLicked" type="submit" class="btn button-container rounded-5"
+            [disabled]="!loginForm.dirty || loginForm.invalid">
+            Log In
+         </button>
+         <mat-spinner *ngIf="isCLicked" color="warn"></mat-spinner>
+      </form>
+   </div>
+   <footer class="p-3">
+      Designed By <span class="fw-bold m-2">&copy; Amr Shalaby</span> | {{date}}
+   </footer>
+</div>

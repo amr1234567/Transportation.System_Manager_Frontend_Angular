@@ -1,0 +1,55 @@
+.field-value {
+   color: #ff6ba080;
+   font-size: 18px;
+}
+
+.date-value {
+   background-color: #333;
+   border-radius: 10px;
+   color: rgba(255, 255, 255, 0.54);
+   padding: 0.7rem;
+   display: flex;
+   align-items: center;
+}
+
+.chair-box {
+   width: 40px;
+   -webkit-user-select: none;
+   /* Safari */
+   -moz-user-select: none;
+   /* Firefox */
+   -ms-user-select: none;
+   /* IE10+/Edge */
+   user-select: none;
+   /* Standard */
+}
+
+img {
+   -webkit-user-select: none;
+   /* Safari */
+   -moz-user-select: none;
+   /* Firefox */
+   -ms-user-select: none;
+   /* IE10+/Edge */
+   user-select: none;
+   /* Standard */
+}
+
+.cut-btn {
+   padding: 0.7rem 3rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #D45161;
+   color: black;
+   font-weight: 600;
+   width: fit-content;
+   margin: 1rem auto;
+   border-radius: 1rem;
+   transition: 0.2s ease-in-out;
+}
+
+.cut-btn:hover {
+   transform: scale(1.05);
+   opacity: 0.9;
+}

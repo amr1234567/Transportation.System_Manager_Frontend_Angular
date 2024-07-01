@@ -1,0 +1,43 @@
+<div class="w-100 p-5">
+   <h1 class="fw-bold">Find Journeys</h1>
+   <form [formGroup]="searchForm" (ngSubmit)="filterJourneys()" action="post"
+      class="d-flex justify-content-between align-items-start w-50 m-auto">
+      <mat-form-field>
+         <mat-label>Destination</mat-label>
+         <mat-select formControlName="DestId">
+            <mat-option [value]="''">None</mat-option>
+            <mat-option *ngFor="let item of DestBusStops" [value]="item.id">{{item.name}}</mat-option>
+         </mat-select>
+      </mat-form-field>
+      <button mat-button type="submit" class="search-btn gap-2 d-flex justify-content-center align-items-center mt-2">
+         <img [src]="searchIcon" alt="">
+         <span class="ms-1">Search</span>
+      </button>
+   </form>
+   <div class="d-flex flex-wrap gap-5 w-100 mt-4">
+      <mat-card *ngFor="let item of JourneysFiltered" class="example-card border">
+         <mat-card-header>
+            <mat-card-title>{{item.destinationName}}</mat-card-title>
+         </mat-card-header>
+         <mat-card-content class="pt-4 pb-4">
+            <div class="d-flex align-items-center gap-4 mb-3">
+               <img [src]="dateIcon" alt="" width="25">
+               <div class="d-flex gap-1 flex-column justify-content-center align-items-start">
+                  <p class="m-0">Date : {{item.leavingTime | date}}</p>
+                  <p class="m-0 text-opacity-50 text-light">Time
+                     :{{item.leavingTime | date: 'HH:mm'}}</p>
+               </div>
+            </div>
+            <div class="d-flex align-items-center gap-4">
+               <img [src]="dollarIcon" alt="" width="25">
+               <p class="m-0">{{item.ticketPrice |egyptianPound }}</p>
+            </div>
+         </mat-card-content>
+         <mat-divider class="bg-light ms-4 me-4"></mat-divider>
+         <mat-card-footer class="p-2 d-flex justify-content-end">
+            <button class="cut-btn" mat-button [routerLink]="'/main/cut-ticket/'+item.id"
+               [disabled]="item.numberOfAvailableTickets==0">Cut</button>
+         </mat-card-footer>
+      </mat-card>
+   </div>
+</div>

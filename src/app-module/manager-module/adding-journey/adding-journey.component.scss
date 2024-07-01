@@ -1,0 +1,24 @@
+button {
+   background-color: transparent;
+   border: 0px transparent;
+   border-radius: 1rem;
+   color: black;
+   font-weight: 600;
+}
+
+.button-container {
+   transition: 0.2s ease-in-out;
+   background-color: #D45161;
+   color: black;
+}
+
+.button-container:hover {
+   transform: scale(1.25);
+   color: black;
+}
+
+.button-container:has(button:disabled) {
+   transform: scale(1);
+   font-weight: 700;
+
+}

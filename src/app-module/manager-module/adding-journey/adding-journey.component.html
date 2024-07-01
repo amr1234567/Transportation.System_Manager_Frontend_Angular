@@ -1,0 +1,81 @@
+<div class="d-flex justify-content-center align-items-center mt-4">
+   <div class="form-container d-flex flex-column align-items-center gap-4 p-4 w-50">
+      <h1 class="text-center fw-bold">Create Journey</h1>
+      <form class="login-form d-flex flex-column gap-4 align-items-center w-100" action="post" [formGroup]="TicketForm"
+         (ngSubmit)="AddJourney()">
+         <div class="w-100">
+            <select *ngIf="busStops" name="startBusStop" formControlName="destinationId"
+               class="form-select form-select-lg mb-3" aria-label="Large select example">
+               <option selected value="">Select Destination Stop</option>
+               <option *ngFor="let item of busStops" [value]="item.id">{{item.name}}</option>
+            </select>
+            <div
+               *ngIf="TicketForm.get('destinationId')?.dirty && TicketForm.get('destinationId')?.hasError('required')">
+               Destination must be selected.
+            </div>
+         </div>
+         <div class="form-floating w-100">
+            <input formControlName="BusId" name="busId" class="form-control rounded-2" type="name" id="busId"
+               placeholder="asd-sad-s-da-sd-as-d-a-sd-a-sd-a" />
+            <label for=" busId" class="form-label text-dark">Bus Id</label>
+            <span class="text-danger bg-transparent"
+               *ngIf="TicketForm.get('BusId')?.dirty &&TicketForm.get('BusId')?.hasError('required')">
+               Bus Id must be Entered
+            </span>
+            <span class="text-danger bg-transparent"
+               *ngIf="TicketForm.get('BusId')?.dirty && !TicketForm.get('BusId')?.hasError('required') && TicketForm.get('BusId')?.hasError('pattern')">
+               Bus Id must be Valid
+            </span>
+         </div>
+         <div class="form-floating w-100">
+            <input formControlName="TicketPrice" name="ticketPrice" class="form-control rounded-2" type="number"
+               id="ticketPrice" placeholder="100" />
+            <label for=" ticketPrice" class="form-label text-dark">Ticket Price</label>
+            <span class="text-danger bg-transparent"
+               *ngIf="TicketForm.get('TicketPrice')?.dirty &&TicketForm.get('TicketPrice')?.hasError('required')">
+               Ticket Price must be Entered
+            </span>
+         </div>
+
+         <div class="form-floating w-100">
+            <input formControlName="LeavingTime" name="leavingTime" class="form-control rounded-2" type="datetime-local"
+               id="leavingTime"
+               [ngClass]="{'is-invalid': TicketForm.get('LeavingTime')?.invalid && (TicketForm.get('LeavingTime')?.dirty || TicketForm.get('LeavingTime')?.touched)}">
+            <label for="leavingTime" class="form-label">Leaving Time</label>
+            <div class="invalid-feedback"
+               *ngIf="TicketForm.invalid && (TicketForm.get('LeavingTime')?.dirty || TicketForm.get('LeavingTime')?.touched)">
+               <div *ngIf="TicketForm.get('LeavingTime')?.hasError('required')">Leaving Time is required</div>
+            </div>
+            <div class="invalid-feedback"
+               *ngIf="TicketForm.invalid && (TicketForm.get('LeavingTime')?.dirty || TicketForm.get('LeavingTime')?.touched)">
+               <div *ngIf="TicketForm.get('LeavingTime')?.hasError('required')">Leaving Time is required</div>
+               <div
+                  *ngIf="!TicketForm.get('LeavingTime')?.hasError('required') && TicketForm.get('LeavingTime')?.hasError('futureDate')">
+                  Leaving Time must be valid
+               </div>
+            </div>
+         </div>
+         <div class="form-floating w-100">
+            <input formControlName="ArrivalTime" name="arrivalTime" class="form-control rounded-2" type="datetime-local"
+               id="arrivalTime"
+               [ngClass]="{'is-invalid': TicketForm.get('ArrivalTime')?.invalid && (TicketForm.get('ArrivalTime')?.dirty || TicketForm.get('ArrivalTime')?.touched)}" />
+            <label for=" arrivalTime" class="form-label">Arrival Time
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <div class="invalid-feedback"
+               *ngIf="TicketForm.get('ArrivalTime')?.invalid && (TicketForm.get('ArrivalTime')?.dirty || TicketForm.get('ArrivalTime')?.touched)">
+               <div *ngIf="TicketForm.get('ArrivalTime')?.hasError('required')">Leaving Time is required</div>
+               <div *ngIf="TicketForm.get('ArrivalTime')?.errors?.['arrivalAfterLeaving']">
+                  Arrival Time must be valid
+               </div>
+            </div>
+         </div>
+         <p *ngIf="CreateSuccess && MessageOfCallApi" class="text-success">{{MessageOfCallApi}}</p>
+         <p *ngIf="!CreateSuccess && MessageOfCallApi" class="text-danger">{{MessageOfCallApi}}</p>
+         <button *ngIf="!isCLicked" type="submit" class="btn button-container rounded-5"
+            [disabled]="!TicketForm.dirty || TicketForm.invalid">
+            Create
+         </button>
+         <mat-spinner *ngIf="isCLicked" color="warn"></mat-spinner>
+      </form>
+   </div>
+</div>

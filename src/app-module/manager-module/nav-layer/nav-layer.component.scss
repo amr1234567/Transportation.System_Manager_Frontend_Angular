@@ -1,0 +1,47 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.set-bg {
+  background-color: var(--bg-color);
+  color: white;
+}
+
+.set-bg-light {
+  background-color: #242424;
+  color: white;
+}
+
+
+.nav-list a {
+  cursor: pointer;
+  min-height: 2.5rem;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  transition: 0.3s ease-in-out;
+  margin: 0rem 0.5rem;
+  border-radius: 5px;
+}
+
+.nav-list a:hover {
+  background-color: #D45161;
+}
+
+.mdc-list-item__primary-text {
+  color: inherit;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

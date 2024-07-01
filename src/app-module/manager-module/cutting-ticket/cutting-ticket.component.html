@@ -1,0 +1,83 @@
+<div *ngIf="Journey" class="w-75 m-auto d-flex flex-column gap-3 p-3">
+   <h1 class="fw-bold">Cut Ticket</h1>
+   <table class="table table-borderless m-auto w-75">
+      <tbody>
+         <tr class="bg-transparent mb-3">
+            <td class="bg-transparent">
+               <div>
+                  <span class="me-1 text-light text-opacity-50 fw-bold me-3">Start Bus Stop:</span>
+                  <span class="field-value">{{Journey.startBusStopName | titlecase}}</span>
+               </div>
+            </td>
+            <td class="bg-transparent">
+               <div>
+                  <span class="me-1 text-light text-opacity-50 fw-bold me-3">Destination Bus Stop:</span>
+                  <span class="field-value">{{Journey.destinationName | titlecase}}</span>
+               </div>
+            </td>
+         </tr>
+         <tr class="bg-transparent mb-3">
+            <td class="bg-transparent">
+               <div class="d-flex align-items-center">
+                  <span class="me-1 text-light text-opacity-50 fw-bold me-3">Arrival Time:</span>
+                  <div class="date-value">
+                     <span>{{Journey.arrivalTime|date}}</span>
+                     <span class="pe-1 ps-1 fw-bold fs-5">||</span>
+                     <span>{{Journey.arrivalTime | date: 'HH:mm'}}</span>
+                     <img [src]="timeIcon" alt="" class="ms-2">
+                  </div>
+               </div>
+            </td>
+            <td class="bg-transparent">
+               <div class="d-flex align-items-center">
+                  <span class="me-1 text-light text-opacity-50 fw-bold me-3">Leaving Time:</span>
+                  <div class="date-value">
+                     <span>{{Journey.leavingTime|date}}</span>
+                     <span class="pe-1 ps-1 fw-bold fs-5">||</span>
+                     <span>{{Journey.leavingTime | date: 'HH:mm'}}</span>
+                     <img [src]="timeIcon" alt="" class="ms-2">
+                  </div>
+               </div>
+            </td>
+         </tr>
+         <tr class="bg-transparent mb-3">
+            <td class="bg-transparent">
+               <div class="d-flex align-items-center">
+                  <span class="me-1 text-light text-opacity-50 fw-bold me-3">Price :</span>
+                  <span class="field-value">{{Journey.ticketPrice | egyptianPound }}</span>
+               </div>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+   <mat-divider class="bg-light ms-4 me-4"></mat-divider>
+   <div class="w-25 m-auto d-flex gap-4">
+      <div class="d-flex w-50 gap-2 flex-wrap">
+         <div *ngFor="let item of Journey.seats.slice(0,halfPoint)" (click)="SetSelectedSeat(item)"
+            class="position-relative chair-box" style="cursor: pointer;">
+            <img
+               [src]="item.isAvailable ? (selectedSeat && selectedSeat.seatId == item.seatId ? SelectedSeatImage :AvailableSeat ) : NotAvailableSeatImage"
+               alt="">
+            <span class="position-absolute top-0 end-0">{{item.seatNum}}</span>
+         </div>
+      </div>
+
+      <div class="d-flex w-50 gap-2 flex-wrap">
+         <div *ngFor="let item of Journey.seats.slice(halfPoint,Journey.seats.length)" (click)="SetSelectedSeat(item)"
+            class="position-relative chair-box" style="cursor: pointer;">
+            <img
+               [src]="item.isAvailable ? (selectedSeat&& selectedSeat.seatId == item.seatId ? SelectedSeatImage :AvailableSeat ) : NotAvailableSeatImage"
+               alt="">
+            <span class="position-absolute top-0 end-0">{{item.seatNum}}</span>
+         </div>
+      </div>
+   </div>
+   <mat-divider class="bg-light ms-4 me-4"></mat-divider>
+   <p *ngIf="FailedMessage" class="text-danger">{{FailedMessage}}</p>
+   <button (click)="CutTicket()" class="cut-btn">
+      Cut Ticket
+   </button>
+</div>
+<div *ngIf="!Journey" class="mt-5 mb-5 pb-5 pt-5 w-25 d-flex align-items-center justify-content-center m-auto">
+   <mat-spinner color="warn"></mat-spinner>
+</div>

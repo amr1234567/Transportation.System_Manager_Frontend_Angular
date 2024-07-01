@@ -1,0 +1,26 @@
+<div class="ticket-card d-flex flex-column justify-content-between mt-5 mb-5">
+   <div style="color: #FFE2BF;">
+      <h1 class="fw-bold">Journey Ticket</h1>
+      <p style="font-size: 1.2rem;">{{ticketDetails.startBusStopName}}
+         <img width="18" [src]="rightArrowIcon" alt="">
+         {{ticketDetails.destinationBusStopName}}
+      </p>
+   </div>
+   <div class="d-flex justify-content-between">
+      <div class="d-flex flex-column gap-3">
+         <div class="d-flex align-items-center gap-3">
+            <img [src]="gpsIcon" alt="">
+            <span>{{ticketDetails.seatNumber}}</span>
+         </div>
+         <div class="d-flex align-items-center gap-3">
+            <img [src]="timeIcon" alt="">
+            <span>{{ticketDetails.leavingTime| date: 'HH:mm'}} - {{ticketDetails.arrivalTime| date: 'HH:mm'}}</span>
+         </div>
+      </div>
+      <div class="d-flex flex-column align-items-center">
+         <p>{{date.dayName}}</p>
+         <p class="fs-1 fw-bold">{{date.dayNumber}}</p>
+         <p>{{date.monthName}} {{date.year}}</p>
+      </div>
+   </div>
+</div>
